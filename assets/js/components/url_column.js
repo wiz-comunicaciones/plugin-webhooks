@@ -8,7 +8,7 @@
          * @return {void}
          */
         constructor ($el) {
-            this.lang = $el.closest('.bedard-webhooks.list').data('lang');
+            this.lang = $el.closest('.wiz-webhooks.list').data('lang');
             $el.on('click', this.onClicked.bind(this));
         }
 

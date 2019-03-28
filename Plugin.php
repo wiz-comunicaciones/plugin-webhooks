@@ -1,4 +1,4 @@
-<?php namespace Bedard\Webhooks;
+<?php namespace Wiz\Webhooks;
 
 use Backend;
 use System\Classes\PluginBase;
@@ -18,9 +18,9 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'bedard.webhooks::lang.plugin.name',
-            'description' => 'bedard.webhooks::lang.plugin.description',
-            'author'      => 'Scott Bedard',
+            'name'        => 'wiz.webhooks::lang.plugin.name',
+            'description' => 'wiz.webhooks::lang.plugin.description',
+            'author'      => 'Scott Bedard, Gonzalo Henríquez (Wiz Comunicaciones)',
             'icon'        => 'icon-code',
         ];
     }
@@ -34,12 +34,12 @@ class Plugin extends PluginBase
     {
         return [
             'webhooks' => [
-                'label'       => 'bedard.webhooks::lang.plugin.name',
-                'description' => 'bedard.webhooks::lang.plugin.description',
-                'category'    => 'bedard.webhooks::lang.plugin.name',
+                'label'       => 'wiz.webhooks::lang.plugin.name',
+                'description' => 'wiz.webhooks::lang.plugin.description',
+                'category'    => 'wiz.webhooks::lang.plugin.name',
                 'icon'        => 'icon-code',
-                'url'         => Backend::url('bedard/webhooks/hooks'),
-                'permissions' => ['bedard.webhooks.manage_hooks'],
+                'url'         => Backend::url('wiz/webhooks/hooks'),
+                'permissions' => ['wiz.webhooks.manage_hooks'],
             ],
         ];
     }
@@ -52,9 +52,9 @@ class Plugin extends PluginBase
     public function registerPermissions()
     {
         return [
-            'bedard.webhooks.manage_hooks' => [
-                'tab' => 'bedard.webhooks::lang.permissions.tab',
-                'label' => 'bedard.webhooks::lang.permissions.manage_hooks',
+            'wiz.webhooks.manage_hooks' => [
+                'tab' => 'wiz.webhooks::lang.permissions.tab',
+                'label' => 'wiz.webhooks::lang.permissions.manage_hooks',
             ],
         ];
     }

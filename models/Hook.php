@@ -1,12 +1,12 @@
-<?php namespace Bedard\Webhooks\Models;
+<?php namespace Wiz\Webhooks\Models;
 
 use DB;
 use Model;
 use Queue;
 use Backend;
 use Carbon\Carbon;
-use Bedard\Webhooks\Models\Log;
-use Bedard\Webhooks\Exceptions\ScriptDisabledException;
+use Wiz\Webhooks\Models\Log;
+use Wiz\Webhooks\Exceptions\ScriptDisabledException;
 
 /**
  * Hook Model
@@ -17,7 +17,7 @@ class Hook extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'bedard_webhooks_hooks';
+    public $table = 'wiz_webhooks_hooks';
 
     /**
      * @var array Guarded fields
@@ -55,7 +55,7 @@ class Hook extends Model
      */
     public $hasMany = [
         'logs' => [
-            'Bedard\Webhooks\Models\Log',
+            'Wiz\Webhooks\Models\Log',
         ],
     ];
 
@@ -178,9 +178,9 @@ class Hook extends Model
             ->toSql();
 
         return $query
-            ->addSelect('bedard_webhooks_hooks.*')
+            ->addSelect('wiz_webhooks_hooks.*')
             ->addSelect('logs.logs_count')
-            ->leftJoin(DB::raw('(' . $subquery . ') logs'), 'bedard_webhooks_hooks.id', '=', 'logs.hook_id');
+            ->leftJoin(DB::raw('(' . $subquery . ') logs'), 'wiz_webhooks_hooks.id', '=', 'logs.hook_id');
     }
 
     /**
@@ -214,6 +214,6 @@ class Hook extends Model
      */
     public function getUrlAttribute()
     {
-        return url('bedard/webhooks', [ 'token' => $this->token ]);
+        return url('wiz/webhooks', [ 'token' => $this->token ]);
     }
 }

@@ -5,8 +5,8 @@
 fields:
 
     name:
-        label: bedard.webhooks::lang.hooks.form.name_label
-        placeholder: bedard.webhooks::lang.hooks.form.name_placeholder
+        label: wiz.webhooks::lang.hooks.form.name_label
+        placeholder: wiz.webhooks::lang.hooks.form.name_placeholder
         span: full
 
     toolbar:
@@ -18,28 +18,28 @@ secondaryTabs:
     stretch: true
     fields:
         script:
-            tab: bedard.webhooks::lang.hooks.tabs.script
+            tab: wiz.webhooks::lang.hooks.tabs.script
             stretch: true
             type: codeeditor
             margin: 20
             language: bash
 
         http_method:
-            tab: bedard.webhooks::lang.hooks.tabs.settings
-            label: bedard.webhooks::lang.hooks.form.http_method
+            tab: wiz.webhooks::lang.hooks.tabs.settings
+            label: wiz.webhooks::lang.hooks.form.http_method
             type: dropdown
             options:
-                POST: bedard.webhooks::lang.hooks.form.http_method_post
-                GET: bedard.webhooks::lang.hooks.form.http_method_get
+                POST: wiz.webhooks::lang.hooks.form.http_method_post
+                GET: wiz.webhooks::lang.hooks.form.http_method_get
             default: POST
 
         is_enabled:
-            tab: bedard.webhooks::lang.hooks.tabs.settings
-            label: bedard.webhooks::lang.hooks.form.status
+            tab: wiz.webhooks::lang.hooks.tabs.settings
+            label: wiz.webhooks::lang.hooks.form.status
             type: switch
             default: true
 
         logs:
-            tab: bedard.webhooks::lang.hooks.tabs.logs
+            tab: wiz.webhooks::lang.hooks.tabs.logs
             type: partial
-            path: $/bedard/webhooks/models/hook/_logs.htm
+            path: $/wiz/webhooks/models/hook/_logs.htm

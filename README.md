@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/scottbedard/oc-webhooks-plugin.svg?branch=master)](https://travis-ci.org/scottbedard/oc-webhooks-plugin)
 [![Coverage Status](https://coveralls.io/repos/github/scottbedard/oc-webhooks-plugin/badge.svg?branch=master)](https://coveralls.io/github/scottbedard/oc-webhooks-plugin?branch=master)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/scottbedard/oc-webhooks-plugin.svg)](https://scrutinizer-ci.com/g/scottbedard/oc-webhooks-plugin)
-[![License](https://img.shields.io/github/license/scottbedard/oc-webhooks-plugin.svg)](https://github.com/scottbedard/oc-webhooks-plugin/blob/master/LICENSE.md)
+[![License](https://img.shields.io/github/license/scottbedard/oc-webhooks-plugin.svg)](https://github.com/wiz-comunicaciones/plugin-webhooks/blob/master/LICENSE.md)
 
 This plugin allows you to create shell scripts that respond to unique URLs. These scripts can be particularly useful for deploying your plugins and themes.
 
@@ -13,10 +13,10 @@ With that said, _use your head_. Don't expose your site to massive security prob
 
 In this example, we'll walk through a basic "push to deploy" example. It is written for GitHub, but the process is roughly the same everywhere. In this example, we'll assume that you've already installed a plugin via GitHub, and have access to the repository settings.
 
-First things first, navigate to `/backend/bedard/webhooks/hooks` and create a new webhook. The script will be pretty simple for this, just cd into your plugin directory and pull.
+First things first, navigate to `/backend/wiz/webhooks/hooks` and create a new webhook. The script will be pretty simple for this, just cd into your plugin directory and pull.
 
 ```bash
-cd plugins/bedard/webhooks
+cd plugins/wiz/webhooks
 git pull
 ```
 

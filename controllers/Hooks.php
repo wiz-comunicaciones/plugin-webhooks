@@ -1,4 +1,4 @@
-<?php namespace Bedard\Webhooks\Controllers;
+<?php namespace Wiz\Webhooks\Controllers;
 
 use Lang;
 use Flash;
@@ -6,7 +6,7 @@ use Backend;
 use Exception;
 use BackendMenu;
 use Backend\Classes\Controller;
-use Bedard\Webhooks\Models\Hook;
+use Wiz\Webhooks\Models\Hook;
 use System\Classes\SettingsManager;
 
 /**
@@ -21,7 +21,7 @@ class Hooks extends Controller
         'Backend.Behaviors.RelationController',
     ];
 
-    public $requiredPermissions = ['bedard.webhooks.manage_hooks'];
+    public $requiredPermissions = ['wiz.webhooks.manage_hooks'];
 
     public $bodyClass = 'compact-container';
     public $formConfig = 'config_form.yaml';
@@ -34,7 +34,7 @@ class Hooks extends Controller
 
         $this->useAssets();
         BackendMenu::setContext('October.System', 'system', 'users');
-        SettingsManager::setContext('Bedard.Webhooks', 'webhooks');
+        SettingsManager::setContext('Wiz.Webhooks', 'webhooks');
     }
 
     /**
@@ -44,8 +44,8 @@ class Hooks extends Controller
      */
     protected function useAssets()
     {
-        $this->addJs('/plugins/bedard/webhooks/assets/compiled/webhooks.min.js');
-        $this->addCss('/plugins/bedard/webhooks/assets/compiled/webhooks.min.css');
+        $this->addJs('/plugins/wiz/webhooks/assets/compiled/webhooks.min.js');
+        $this->addCss('/plugins/wiz/webhooks/assets/compiled/webhooks.min.css');
     }
 
     /**
@@ -62,21 +62,21 @@ class Hooks extends Controller
     public function onExecute()
     {
         Hook::findOrFail(post('id'))->executeScript();
-        Flash::success(Lang::get('bedard.webhooks::lang.hooks.execute_success'));
+        Flash::success(Lang::get('wiz.webhooks::lang.hooks.execute_success'));
         return $this->listRefresh();
     }
 
     public function onEnable()
     {
         Hook::whereIn('id', post('checked'))->enable();
-        Flash::success(Lang::get('bedard.webhooks::lang.hooks.status_enabled_msg'));
+        Flash::success(Lang::get('wiz.webhooks::lang.hooks.status_enabled_msg'));
         return $this->listRefresh();
     }
 
     public function onDisable()
     {
         Hook::whereIn('id', post('checked'))->disable();
-        Flash::success(Lang::get('bedard.webhooks::lang.hooks.status_disabled_msg'));
+        Flash::success(Lang::get('wiz.webhooks::lang.hooks.status_disabled_msg'));
         return $this->listRefresh();
     }
 }

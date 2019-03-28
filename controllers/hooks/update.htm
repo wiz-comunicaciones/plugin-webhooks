@@ -1,5 +1,5 @@
 <?php if (!$this->fatalError): ?>
-    <div class="bedard-webhooks form layout fancy-layout padded">
+    <div class="wiz-webhooks form layout fancy-layout padded">
         <?= Form::open([
             'class' => 'layout',
             'id' => 'hooks-form',
@@ -16,9 +16,9 @@
     <div class="padded-container">
         <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
         <p>
-            <a href="<?= Backend::url('bedard/webhooks/hooks') ?>" class="btn btn-default">
-                <?= e(trans('bedard.shop::lang.form.return_to_list', [
-                    'resource' => e(trans('bedard.webhooks::lang.hooks.model')),
+            <a href="<?= Backend::url('wiz/webhooks/hooks') ?>" class="btn btn-default">
+                <?= e(trans('wiz.shop::lang.form.return_to_list', [
+                    'resource' => e(trans('wiz.webhooks::lang.hooks.model')),
                 ])) ?>
             </a>
         </p>

@@ -1,3 +1,3 @@
 <?php
 
-Route::any('bedard/webhooks/{token}', 'Bedard\Webhooks\Http\WebhooksController@execute');
+Route::any('wiz/webhooks/{token}', 'Wiz\Webhooks\Http\WebhooksController@execute');

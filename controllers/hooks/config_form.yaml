@@ -3,28 +3,28 @@
 # ===================================
 
 # Record name
-name: bedard.webhooks::lang.hooks.model
+name: wiz.webhooks::lang.hooks.model
 
 # Model Form Field configuration
-form: $/bedard/webhooks/models/hook/fields.yaml
+form: $/wiz/webhooks/models/hook/fields.yaml
 
 # Model Class name
-modelClass: Bedard\Webhooks\Models\Hook
+modelClass: Wiz\Webhooks\Models\Hook
 
 # Default redirect location
-defaultRedirect: bedard/webhooks/hooks
+defaultRedirect: wiz/webhooks/hooks
 
 # Create page
 create:
     title: backend::lang.relation.create_name
-    redirect: bedard/webhooks/hooks/update/:id
-    redirectClose: bedard/webhooks/hooks
+    redirect: wiz/webhooks/hooks/update/:id
+    redirectClose: wiz/webhooks/hooks
 
 # Update page
 update:
     title: backend::lang.relation.update_name
-    redirect: bedard/webhooks/hooks
-    redirectClose: bedard/webhooks/hooks
+    redirect: wiz/webhooks/hooks
+    redirectClose: wiz/webhooks/hooks
 
 # Preview page
 preview:

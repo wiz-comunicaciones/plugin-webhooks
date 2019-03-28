@@ -3,8 +3,8 @@
     class="btn btn-sm btn-default"
     data-request="onExecute"
     data-request-data="id: <?= $record->id ?>"
-    onclick="$(this).text('<?= e(trans('bedard.webhooks::lang.hooks.execute_running')) ?>').addClass('disabled');"
+    onclick="$(this).text('<?= e(trans('wiz.webhooks::lang.hooks.execute_running')) ?>').addClass('disabled');"
     <?php if (!$record->is_enabled): ?>disabled="disabled"<?php endif ?>
 >
-    <?= e(trans('bedard.webhooks::lang.hooks.execute')) ?>
+    <?= e(trans('wiz.webhooks::lang.hooks.execute')) ?>
 </a>

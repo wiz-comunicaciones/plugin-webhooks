@@ -12,7 +12,7 @@
     bootstrap="../../../tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Bedard.Webhooks Unit Test Suite">
+        <testsuite name="Wiz.Webhooks Unit Test Suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

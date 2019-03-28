@@ -4,12 +4,12 @@
 
 fields:
     created_at:
-        label: bedard.webhooks::lang.logs.form.created_at
+        label: wiz.webhooks::lang.logs.form.created_at
         type: datepicker
         disabled: true
 
     output:
-        label: bedard.webhooks::lang.logs.form.output
+        label: wiz.webhooks::lang.logs.form.output
         type: codeeditor
         readOnly: true
         size: giant

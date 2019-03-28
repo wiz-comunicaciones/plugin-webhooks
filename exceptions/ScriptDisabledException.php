@@ -1,4 +1,4 @@
-<?php namespace Bedard\Webhooks\Exceptions;
+<?php namespace Wiz\Webhooks\Exceptions;
 
 use Exception;
 
