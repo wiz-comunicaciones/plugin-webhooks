@@ -33,6 +33,15 @@ secondaryTabs:
                 GET: wiz.webhooks::lang.hooks.form.http_method_get
             default: POST
 
+        type:
+            tab: wiz.webhooks::lang.hooks.tabs.settings
+            label: wiz.webhooks::lang.hooks.form.type
+            type: dropdown
+            options:
+                shell: wiz.webhooks::lang.hooks.form.type_shell
+                console: wiz.webhooks::lang.hooks.form.type_console
+            default: POST
+
         is_enabled:
             tab: wiz.webhooks::lang.hooks.tabs.settings
             label: wiz.webhooks::lang.hooks.form.status

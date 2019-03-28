@@ -1,6 +1,13 @@
 1.0.1:
-    - First version of Webhook
+    - First version of Webhooks
     - create_hooks_table.php
     - create_logs_table.php
 
 1.0.2: Fix MySQL strict-mode error
+
+1.0.3: Namespace change
+
+1.0.4:
+    - Created request data table, added hook type
+    - create_requests_table.php
+    - update_hooks_table.php

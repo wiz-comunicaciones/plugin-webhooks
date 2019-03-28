@@ -48,6 +48,9 @@ return [
             'http_method' => 'HTTP Method',
             'http_method_get' => 'Get',
             'http_method_post' => 'Post',
+            'type' => 'Action Type',
+            'type_shell' => 'Bash Shell Script',
+            'type_console' => 'Artisan Console Command',
             'name_label' => 'Name',
             'name_placeholder' => 'Enter a name...',
             'status' => 'Status',
@@ -55,7 +58,7 @@ return [
         ],
         'tabs' => [
             'logs' => 'Logs',
-            'script' => 'Script',
+            'script' => 'Shell/Console',
             'settings' => 'Settings',
         ],
     ],
