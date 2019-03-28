@@ -92,12 +92,12 @@ class Hook extends Model
      */
     public function queueConsoleCommand($request_data)
     {
-        $id = $this->id;
         $requestData = RequestData::create([
-            'hook_id' => $id,
+            'hook_id' => $this->id,
             'request_data' => $request_data
         ]);
-        Queue::push(function() use ($requestData) { Hook::findAndExecuteConsoleCommand($requestData->id); });
+        $id = $requestData->id;
+        Queue::push(function() use ($id) { Hook::findAndExecuteConsoleCommand($id); });
     }
 
     /**
