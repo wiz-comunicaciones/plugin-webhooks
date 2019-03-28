@@ -1,10 +1,10 @@
-<?php namespace Bedard\Webhooks\Tests;
+<?php namespace Wiz\Webhooks\Tests;
 
 use Exception;
 use Carbon\Carbon;
 use PluginTestCase;
-use Bedard\Webhooks\Models\Log;
-use Bedard\Webhooks\Models\Hook;
+use Wiz\Webhooks\Models\Log;
+use Wiz\Webhooks\Models\Hook;
 
 class HookTest extends PluginTestCase
 {
@@ -54,7 +54,7 @@ class HookTest extends PluginTestCase
     {
         $hook = $this->newHook(['http_method' => 'GET']);
         $this->assertEquals('GET', $hook->httpMethod);
-        $this->assertTrue(preg_match('/(.*)\/bedard\/webhooks\/(\w{40})/', $hook->url) === 1);
+        $this->assertTrue(preg_match('/(.*)\/wiz\/webhooks\/(\w{40})/', $hook->url) === 1);
     }
 
     public function test_only_enabled_hooks_can_be_executed()
@@ -63,7 +63,7 @@ class HookTest extends PluginTestCase
         $hook->executeScript();
 
         $hook->is_enabled = false;
-        $this->setExpectedException('Bedard\Webhooks\Exceptions\ScriptDisabledException');
+        $this->setExpectedException('Wiz\Webhooks\Exceptions\ScriptDisabledException');
         $hook->executeScript();
     }
 

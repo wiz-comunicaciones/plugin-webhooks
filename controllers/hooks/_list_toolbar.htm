@@ -1,9 +1,9 @@
 <div data-control="toolbar">
     <a
-        href="<?= Backend::url('bedard/webhooks/hooks/create') ?>"
+        href="<?= Backend::url('wiz/webhooks/hooks/create') ?>"
         class="btn btn-primary oc-icon-plus">
         <?= e(trans('backend::lang.form.create_title', [
-            'name' => trans('bedard.webhooks::lang.hooks.model'),
+            'name' => trans('wiz.webhooks::lang.hooks.model'),
         ])) ?>
     </a>
 
@@ -18,7 +18,7 @@
             data-trigger-condition="checked"
             data-request-success="$(this).prop('disabled', false)"
             data-stripe-load-indicator>
-            <?= e(trans('bedard.webhooks::lang.hooks.enable')) ?>
+            <?= e(trans('wiz.webhooks::lang.hooks.enable')) ?>
         </button>
 
         <button
@@ -31,7 +31,7 @@
             data-trigger-condition="checked"
             data-request-success="$(this).prop('disabled', false)"
             data-stripe-load-indicator>
-            <?= e(trans('bedard.webhooks::lang.hooks.disable')) ?>
+            <?= e(trans('wiz.webhooks::lang.hooks.disable')) ?>
         </button>
     </div>
 

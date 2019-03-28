@@ -1,4 +1,4 @@
-<?php namespace Bedard\Webhooks\Updates;
+<?php namespace Wiz\Webhooks\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateHooksTable extends Migration
 
     public function up()
     {
-        Schema::create('bedard_webhooks_hooks', function($table)
+        Schema::create('wiz_webhooks_hooks', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -25,7 +25,7 @@ class CreateHooksTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('bedard_webhooks_hooks');
+        Schema::dropIfExists('wiz_webhooks_hooks');
     }
 
 }

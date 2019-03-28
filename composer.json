@@ -1,17 +1,21 @@
 {
-    "name": "bedard/webhooks",
+    "name": "wiz-comunicaciones/webhooks",
     "description": "Integrate October applications with external services.",
-    "homepage": "https://github.com/scottbedard/oc-webhooks-plugin",
+    "homepage": "https://github.com/wiz-comunicaciones/plugin-webhooks",
     "keywords": ["octobercms"],
     "authors": [
         {
-            "name": "Scott Bedard",
+            "name": "Scott Wiz",
             "email": "scott@scottbedard.net"
+        },
+        {
+            "name": "Gonzalo Henríquez",
+            "email": "henriquez@wiz.cl"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Bedard\\Webhooks\\Tests\\": "tests/"
+            "Wiz\\Webhooks\\Tests\\": "tests/"
         }
     },
     "require-dev": {

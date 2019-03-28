@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/bedard/webhooks/models/hook/columns.yaml
+list: $/wiz/webhooks/models/hook/columns.yaml
 
 # Model Class name
-modelClass: Bedard\Webhooks\Models\Hook
+modelClass: Wiz\Webhooks\Models\Hook
 
 # List Title
-title: bedard.webhooks::lang.hooks.list_title
+title: wiz.webhooks::lang.hooks.list_title
 
 # Link URL for each record
-recordUrl: bedard/webhooks/hooks/update/:id
+recordUrl: wiz/webhooks/hooks/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

@@ -1,4 +1,4 @@
-<?php namespace Bedard\Webhooks\Models;
+<?php namespace Wiz\Webhooks\Models;
 
 use Model;
 
@@ -11,7 +11,7 @@ class Log extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'bedard_webhooks_logs';
+    public $table = 'wiz_webhooks_logs';
 
     /**
      * @var array Guarded fields
@@ -28,7 +28,7 @@ class Log extends Model
      */
     public $belongsTo = [
         'hook' => [
-            'Bedard\Webhooks\Models\Hook',
+            'Wiz\Webhooks\Models\Hook',
         ],
     ];
 }
