@@ -5,8 +5,8 @@ use Model;
 use Queue;
 use Backend;
 use Carbon\Carbon;
-use Wiz\Webhooks\Models\Log;
 use Wiz\Webhooks\Exceptions\ScriptDisabledException;
+use Illuminate\Support\Facades\Artisan;
 
 /**
  * Hook Model
@@ -57,6 +57,9 @@ class Hook extends Model
         'logs' => [
             'Wiz\Webhooks\Models\Log',
         ],
+        'request_data' => [
+            'Wiz\Webhooks\Models\RequestData',
+        ],
     ];
 
     /**
@@ -83,6 +86,21 @@ class Hook extends Model
     }
 
     /**
+     * Execute the console command and log the output
+     *
+     * @return boolean
+     */
+    public function queueConsoleCommand($request_data)
+    {
+        $id = $this->id;
+        $requestData = RequestData::create([
+            'hook_id' => $id,
+            'request_data' => $request_data
+        ]);
+        Queue::push(function() use ($requestData) { Hook::findAndExecuteConsoleCommand($requestData->id); });
+    }
+
+    /**
      * Execute the shell script and log the output
      *
      * @return string
@@ -96,6 +114,24 @@ class Hook extends Model
 
         // Run the script and log the output
         $output = shell_exec($this->script);
+        Log::create(['hook_id' => $this->id, 'output' => $output]);
+
+        // Update our executed_at timestamp
+        $this->executed_at = Carbon::now();
+        $this->save();
+    }
+
+    public function executeConsoleCommand($requestId)
+    {
+        // Make sure the script is enabled
+        if (!$this->is_enabled) {
+            throw new ScriptDisabledException();
+        }
+
+        $request = RequestData::find($requestId);
+
+        // Run the script and log the output
+        $output = Artisan::call($this->script, ['request_data' => $request->request_data]);
         Log::create(['hook_id' => $this->id, 'output' => $output]);
 
         // Update our executed_at timestamp
@@ -138,6 +174,20 @@ class Hook extends Model
     public function scopeFindAndExecuteScript($query, $id)
     {
         return $query->find($id)->executeScript();
+    }
+
+    /**
+     * Find a hook and execute it's console command
+     *
+     * @param  \October\Rain\Database\Builder   $query
+     * @param  integer                          $id (id of a request data model)
+     * @return \October\Rain\Database\Builder
+     */
+    public function scopeFindAndExecuteConsoleCommand($query, $requestId)
+    {
+        return $query->whereHas('request_data', function($q) use ($requestId){
+                    $q->where('id', $requestId);
+                })->executeConsoleCommand($requestId);
     }
 
     /**
