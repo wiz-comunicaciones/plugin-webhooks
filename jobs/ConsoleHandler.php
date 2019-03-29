@@ -23,11 +23,9 @@ class ConsoleHandler
         }
 
         // Run the script and log the output
-        $output = Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
+        Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
 
-        trace_log($output);
-
-        \Wiz\Webhooks\Models\Log::create(['hook_id' => $requestDataObj->hook_id, 'output' => $output]);
+        \Wiz\Webhooks\Models\Log::create(['hook_id' => $requestDataObj->hook_id, 'output' => Artisan::output()]);
 
         // Update our executed_at timestamp
         $hook->executed_at = Carbon::now();
