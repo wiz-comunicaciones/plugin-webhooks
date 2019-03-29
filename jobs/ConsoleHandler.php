@@ -11,7 +11,7 @@ class ConsoleHandler
     {
         # retrieving $requestDataId
         try {
-            $requestDataObj = RequestData::find($requestDataId);
+            $requestDataObj = RequestData::find($data['request_id']);
         } catch (ModelNotFoundException $e) {
             throw $e;
         }

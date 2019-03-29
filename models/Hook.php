@@ -81,8 +81,7 @@ class Hook extends Model
      */
     public function queueScript()
     {
-        $id = $this->id;
-        Queue::push(function() use ($id) { Hook::findAndExecuteScript($id); });
+        Queue::push(\Wiz\Webhooks\Jobs\ShellHandler::class, ['hook_id' => $this->id]);
     }
 
     /**
@@ -96,8 +95,7 @@ class Hook extends Model
             'hook_id' => $this->id,
             'request_data' => $request_data
         ]);
-        $id = $requestData->id;
-        Queue::push(function() use ($id) { Hook::findAndExecuteConsoleCommand($id); });
+        Queue::push(\Wiz\Webhooks\Jobs\ShellHandler::class, ['request_id' => $requestData->id]);
     }
 
     /**

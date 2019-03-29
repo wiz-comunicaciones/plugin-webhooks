@@ -8,9 +8,8 @@ class ShellHandler
 {
     public static function fire($job, $data)
     {
-        # retrieve $hookId from data
         try {
-            $hook = Hook::findOrFail($hookId);
+            $hook = Hook::findOrFail($data['hook_id']);
         } catch (ModelNotFoundException $e) {
             throw $e;
         }
