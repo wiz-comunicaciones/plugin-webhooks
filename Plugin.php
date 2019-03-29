@@ -58,4 +58,8 @@ class Plugin extends PluginBase
             ],
         ];
     }
+
+    public function register(){
+        $this->registerConsoleCommand('wiz:webhooks.test', 'Wiz\Webhooks\Console\Test');
+    }
 }
