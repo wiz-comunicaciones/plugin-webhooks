@@ -3,13 +3,14 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Log;
+use Wiz\Webhooks\Models\RequestData;
 
-class Test extends Command
+class Example extends Command
 {
     /**
      * @var string The console command name.
      */
-    protected $name = 'wiz:webhooks.test';
+    protected $name = 'wiz:webhooks.example';
 
     /**
      * @var string The console command description.
@@ -22,22 +23,14 @@ class Test extends Command
      */
     public function handle()
     {
-        trace_log('Command is being executed');
+        # Get the request data
+        $request = RequestData::findOrfail($this->argument('request_id'));
 
-        $start = microtime(true);
-
-        # Start logging
-        Log::info('Started Test console command...');
-        Log::info($this->argument('request_id'));
-
+        # Work with the request data. You will have access to the hook object in $request->hook
         $this->output->writeln('Executed test console command');
+        $this->output->writeln('Hook: ' . $request->hook->name . ' (hookId: ' . $request->hook_id);
         $this->output->writeln('Received data:');
-        $this->output->write(json_encode($this->argument('request_id')));
-
-        $end = microtime(true);
-        Log::info('Test command finished. Ellapsed time: ' . ($end - $start) . ' seconds.');
-
-        trace_log('Command ended');
+        $this->output->write(json_encode($request->request_data), true);
     }
 
     protected function getArguments()
