@@ -2,7 +2,6 @@
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Log;
 use Wiz\Webhooks\Models\RequestData;
 
 class Example extends Command
@@ -23,6 +22,8 @@ class Example extends Command
      */
     public function handle()
     {
+        trace_log('Running the example console command.');
+
         # Get the request data
         $request = RequestData::findOrfail($this->argument('request_id'));
 
