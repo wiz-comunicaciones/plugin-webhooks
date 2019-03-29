@@ -28,7 +28,7 @@ class Test extends Command
 
         # Start logging
         Log::info('Started Test console command...');
-        Log::info($this->argument('request_data'));
+        Log::info($this->argument('request_id'));
 
         $this->output->writeln('Executed test console command');
         $this->output->writeln('Received data:');
