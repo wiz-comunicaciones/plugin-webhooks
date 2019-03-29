@@ -3,7 +3,6 @@
 use Wiz\Webhooks\Models\RequestData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Artisan;
-use Log;
 
 class ConsoleHandler
 {
@@ -25,7 +24,10 @@ class ConsoleHandler
 
         // Run the script and log the output
         $output = Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
-        Log::create(['hook_id' => $requestDataObj->hook_id, 'output' => $output]);
+
+        trace_log($output);
+
+        \Wiz\Webhooks\Models\Log::create(['hook_id' => $requestDataObj->hook_id, 'output' => $output]);
 
         // Update our executed_at timestamp
         $hook->executed_at = Carbon::now();
