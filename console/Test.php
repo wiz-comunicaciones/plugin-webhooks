@@ -21,6 +21,8 @@ class Test extends Command
      */
     public function handle()
     {
+        trace_log('Command is being executed');
+
         $start = microtime(true);
 
         # Start logging
@@ -34,5 +36,6 @@ class Test extends Command
         $end = microtime(true);
         Log::info('Test command finished. Ellapsed time: ' . ($end - $start) . ' seconds.');
 
+        trace_log('Command ended');
     }
 }

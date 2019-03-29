@@ -2,7 +2,7 @@
 
 use Wiz\Webhooks\Models\RequestData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Artisan;
+use Artisan;
 
 class ConsoleHandler
 {
