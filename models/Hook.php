@@ -107,7 +107,7 @@ class Hook extends Model
         if($this->type == 'shell')
             $this->queueScript();
         else
-            $this->queueConsoleCommand(16);
+            $this->queueConsoleCommand(['request_data' => 16]);
     }
 
     /**
