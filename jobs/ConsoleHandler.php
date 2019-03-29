@@ -2,7 +2,7 @@
 
 use Wiz\Webhooks\Models\RequestData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 
 class ConsoleHandler
 {
@@ -31,7 +31,7 @@ class ConsoleHandler
         // Run the script and log the output
         try {
             trace_log('Artisan calling' . $hook->script);
-            Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
+            trace_log(Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]));
             traceLog('done ...');
         } catch (Exception $e) {
             throw $e;
