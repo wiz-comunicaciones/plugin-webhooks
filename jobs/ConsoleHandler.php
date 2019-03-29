@@ -1,4 +1,4 @@
-<?php namespace Wiz\Webhooks\Classes;
+<?php namespace Wiz\Webhooks\Jobs;
 
 use Wiz\Webhooks\Models\RequestData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -7,8 +7,9 @@ use Log;
 
 class ConsoleHandler
 {
-    public static function fire($requestDataId)
+    public static function fire($job, $data)
     {
+        # retrieving $requestDataId
         try {
             $requestDataObj = RequestData::find($requestDataId);
         } catch (ModelNotFoundException $e) {

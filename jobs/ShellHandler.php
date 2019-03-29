@@ -1,4 +1,4 @@
-<?php namespace Wiz\Webhooks\Classes;
+<?php namespace Wiz\Webhooks\Jobs;
 
 use Wiz\Webhooks\Models\Hook;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -8,6 +8,7 @@ class ShellHandler
 {
     public static function fire($job, $data)
     {
+        # retrieve $hookId from data
         try {
             $hook = Hook::findOrFail($hookId);
         } catch (ModelNotFoundException $e) {
