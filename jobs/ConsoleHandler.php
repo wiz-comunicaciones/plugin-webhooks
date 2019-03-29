@@ -29,10 +29,13 @@ class ConsoleHandler
         trace_log('Hook found and ok');
 
         // Run the script and log the output
-        Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
-
-        trace_log('Artisan called');
-
+        try {
+            trace_log('Artisan called');
+            Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
+            traceLog('done ...');
+        } catch (Exception $e) {
+            throw $e;
+        }
         \Wiz\Webhooks\Models\Log::create(['hook_id' => $requestDataObj->hook_id, 'output' => Artisan::output()]);
 
         trace_log('Log created');
