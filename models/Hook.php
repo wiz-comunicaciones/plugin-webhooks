@@ -102,6 +102,14 @@ class Hook extends Model
         trace_log('Command queued');
     }
 
+    public function executeScript()
+    {
+        if($this->type == 'shell')
+            $this->queueScript();
+        else
+            $this->queueConsoleCommand(16);
+    }
+
     /**
      * Returns the script with normalized line endings
      *
