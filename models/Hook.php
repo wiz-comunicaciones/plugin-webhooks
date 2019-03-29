@@ -95,7 +95,7 @@ class Hook extends Model
             'hook_id' => $this->id,
             'request_data' => $request_data
         ]);
-        Queue::push(\Wiz\Webhooks\Jobs\ShellHandler::class, ['request_id' => $requestData->id]);
+        Queue::push(\Wiz\Webhooks\Jobs\ConsoleHandler::class, ['request_id' => $requestData->id]);
     }
 
     /**
