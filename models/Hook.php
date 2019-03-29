@@ -5,8 +5,6 @@ use Model;
 use Queue;
 use Backend;
 use Carbon\Carbon;
-use Wiz\Webhooks\Exceptions\ScriptDisabledException;
-use Illuminate\Support\Facades\Artisan;
 
 /**
  * Hook Model
@@ -81,6 +79,7 @@ class Hook extends Model
      */
     public function queueScript()
     {
+        trace_log('Attempting to queue script');
         Queue::push(\Wiz\Webhooks\Jobs\ShellHandler::class, ['hook_id' => $this->id]);
     }
 
@@ -91,50 +90,13 @@ class Hook extends Model
      */
     public function queueConsoleCommand($request_data)
     {
+        trace_log('Attempting to execute console command');
         $requestData = RequestData::create([
             'hook_id' => $this->id,
             'request_data' => $request_data
         ]);
+        trace_log($requestData->id);
         Queue::push(\Wiz\Webhooks\Jobs\ConsoleHandler::class, ['request_id' => $requestData->id]);
-    }
-
-    /**
-     * Execute the shell script and log the output
-     *
-     * @return string
-     */
-    public function executeScript()
-    {
-        // Make sure the script is enabled
-        if (!$this->is_enabled) {
-            throw new ScriptDisabledException();
-        }
-
-        // Run the script and log the output
-        $output = shell_exec($this->script);
-        Log::create(['hook_id' => $this->id, 'output' => $output]);
-
-        // Update our executed_at timestamp
-        $this->executed_at = Carbon::now();
-        $this->save();
-    }
-
-    public function executeConsoleCommand($requestId)
-    {
-        // Make sure the script is enabled
-        if (!$this->is_enabled) {
-            throw new ScriptDisabledException();
-        }
-
-        $request = RequestData::find($requestId);
-
-        // Run the script and log the output
-        $output = Artisan::call($this->script, ['request_data' => $request->request_data]);
-        Log::create(['hook_id' => $this->id, 'output' => $output]);
-
-        // Update our executed_at timestamp
-        $this->executed_at = Carbon::now();
-        $this->save();
     }
 
     /**
@@ -160,32 +122,6 @@ class Hook extends Model
             ->whereHttpMethod($httpMethod)
             ->whereToken($token)
             ->firstOrFail();
-    }
-
-    /**
-     * Find a hook and execute it's script
-     *
-     * @param  \October\Rain\Database\Builder   $query
-     * @param  integer                          $id
-     * @return \October\Rain\Database\Builder
-     */
-    public function scopeFindAndExecuteScript($query, $id)
-    {
-        return $query->find($id)->executeScript();
-    }
-
-    /**
-     * Find a hook and execute it's console command
-     *
-     * @param  \October\Rain\Database\Builder   $query
-     * @param  integer                          $id (id of a request data model)
-     * @return \October\Rain\Database\Builder
-     */
-    public function scopeFindAndExecuteConsoleCommand($query, $requestId)
-    {
-        return $query->whereHas('request_data', function($q) use ($requestId){
-                    $q->where('id', $requestId);
-                })->executeConsoleCommand($requestId);
     }
 
     /**
