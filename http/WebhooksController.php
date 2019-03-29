@@ -19,9 +19,8 @@ class WebhooksController extends Controller
     {
         try {
             // If no webhook was found, return a 404
-            if (!$hook = Hook::findByTokenAndMethod($token, Request::method())) {
+            if (!$hook = Hook::findByTokenAndMethod($token, Request::method()))
                 return Response::make(e(trans('wiz.webhooks::lang.responses.not_found')), 404);
-            }
 
             switch($hook->type){
                 case 'console':

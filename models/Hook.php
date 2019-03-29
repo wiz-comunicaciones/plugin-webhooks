@@ -94,9 +94,7 @@ class Hook extends Model
             'hook_id' => $this->id,
             'request_data' => $request_data
         ]);
-        trace_log('reached Artisan');
         Artisan::queue($this->script, ['request_id' => $requestData->id]);
-        trace_log('executed Artisan');
         Log::create(['hook_id' => $this->id, 'output' => Artisan::output()]);
     }
 
