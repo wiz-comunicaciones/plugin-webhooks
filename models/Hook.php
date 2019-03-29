@@ -1,12 +1,11 @@
 <?php namespace Wiz\Webhooks\Models;
 
 use DB;
+use Illuminate\Support\Facades\Artisan;
 use Model;
 use Queue;
 use Backend;
 use Carbon\Carbon;
-use Wiz\Webhooks\Models\Log;
-use Wiz\Webhooks\Exceptions\ScriptDisabledException;
 
 /**
  * Hook Model
@@ -57,6 +56,9 @@ class Hook extends Model
         'logs' => [
             'Wiz\Webhooks\Models\Log',
         ],
+        'request_data' => [
+            'Wiz\Webhooks\Models\RequestData',
+        ],
     ];
 
     /**
@@ -78,29 +80,30 @@ class Hook extends Model
      */
     public function queueScript()
     {
-        $id = $this->id;
-        Queue::push(function() use ($id) { Hook::findAndExecuteScript($id); });
+        Queue::push('Wiz\Webhooks\Jobs\ShellHandler', ['hook_id' => $this->id]);
     }
 
     /**
-     * Execute the shell script and log the output
+     * Execute the console command and log the output
      *
-     * @return string
+     * @return boolean
      */
+    public function queueConsoleCommand($request_data)
+    {
+        $requestData = RequestData::create([
+            'hook_id' => $this->id,
+            'request_data' => $request_data
+        ]);
+        Artisan::queue($this->script, ['request_id' => $requestData->id]);
+        Log::create(['hook_id' => $this->id, 'output' => Artisan::output()]);
+    }
+
     public function executeScript()
     {
-        // Make sure the script is enabled
-        if (!$this->is_enabled) {
-            throw new ScriptDisabledException();
-        }
-
-        // Run the script and log the output
-        $output = shell_exec($this->script);
-        Log::create(['hook_id' => $this->id, 'output' => $output]);
-
-        // Update our executed_at timestamp
-        $this->executed_at = Carbon::now();
-        $this->save();
+        if($this->type == 'shell')
+            $this->queueScript();
+        else
+            $this->queueConsoleCommand(['console_command_example' => '1']);
     }
 
     /**
@@ -126,18 +129,6 @@ class Hook extends Model
             ->whereHttpMethod($httpMethod)
             ->whereToken($token)
             ->firstOrFail();
-    }
-
-    /**
-     * Find a hook and execute it's script
-     *
-     * @param  \October\Rain\Database\Builder   $query
-     * @param  integer                          $id
-     * @return \October\Rain\Database\Builder
-     */
-    public function scopeFindAndExecuteScript($query, $id)
-    {
-        return $query->find($id)->executeScript();
     }
 
     /**

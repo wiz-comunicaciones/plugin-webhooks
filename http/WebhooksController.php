@@ -19,12 +19,18 @@ class WebhooksController extends Controller
     {
         try {
             // If no webhook was found, return a 404
-            if (!$hook = Hook::findByTokenAndMethod($token, Request::method())) {
+            if (!$hook = Hook::findByTokenAndMethod($token, Request::method()))
                 return Response::make(e(trans('wiz.webhooks::lang.responses.not_found')), 404);
-            }
 
-            // Otherwise queue the script for execution, and return a 200
-            $hook->queueScript();
+            switch($hook->type){
+                case 'console':
+                    $hook->queueConsoleCommand(Request::toArray()); # Queue the console command, and return a 200
+                    break;
+                case 'shell':
+                default:
+                    $hook->queueScript(); # Otherwise queue the script for execution, and return a 200
+                    break;
+            }
             return Response::make(e(trans('wiz.webhooks::lang.responses.success')), 200);
         } catch (Exception $e) {
             return Response::make(e(trans('wiz.webhooks::lang.responses.failed')), 500);
