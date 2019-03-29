@@ -1,6 +1,7 @@
 <?php namespace Wiz\Webhooks\Models;
 
 use DB;
+use Illuminate\Support\Facades\Artisan;
 use Model;
 use Queue;
 use Backend;
@@ -96,7 +97,9 @@ class Hook extends Model
             'request_data' => $request_data
         ]);
         trace_log($requestData->id);
-        Queue::push('Wiz\Webhooks\Jobs\ConsoleHandler', ['request_id' => $requestData->id]);
+        trace_log('Queuing console command ' . $this->script);
+        Artisan::queue($this->script, ['request_id' => $requestData->id]);
+        trace_log('Command queued');
     }
 
     /**
