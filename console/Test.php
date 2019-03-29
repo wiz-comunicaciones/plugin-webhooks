@@ -1,6 +1,7 @@
 <?php namespace Wiz\Webhooks\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Log;
 
 class Test extends Command
@@ -31,11 +32,18 @@ class Test extends Command
 
         $this->output->writeln('Executed test console command');
         $this->output->writeln('Received data:');
-        $this->output->write(json_encode($this->argument('request_data')));
+        $this->output->write(json_encode($this->argument('request_id')));
 
         $end = microtime(true);
         Log::info('Test command finished. Ellapsed time: ' . ($end - $start) . ' seconds.');
 
         trace_log('Command ended');
+    }
+
+    protected function getArguments()
+    {
+        return [
+            ['request_id', InputArgument::REQUIRED, 'The requestData model id.'],
+        ];
     }
 }
