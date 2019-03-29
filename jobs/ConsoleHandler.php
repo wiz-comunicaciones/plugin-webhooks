@@ -30,7 +30,7 @@ class ConsoleHandler
 
         // Run the script and log the output
         try {
-            trace_log('Artisan called');
+            trace_log('Artisan calling' . $hook->script);
             Artisan::call($hook->script, ['request_data' => $requestDataObj->request_data]);
             traceLog('done ...');
         } catch (Exception $e) {
