@@ -80,7 +80,7 @@ class Hook extends Model
     public function queueScript()
     {
         trace_log('Attempting to queue script');
-        Queue::push(\Wiz\Webhooks\Jobs\ShellHandler::class, ['hook_id' => $this->id]);
+        Queue::push('Wiz\Webhooks\Jobs\ShellHandler', ['hook_id' => $this->id]);
     }
 
     /**
@@ -96,7 +96,7 @@ class Hook extends Model
             'request_data' => $request_data
         ]);
         trace_log($requestData->id);
-        Queue::push(\Wiz\Webhooks\Jobs\ConsoleHandler::class, ['request_id' => $requestData->id]);
+        Queue::push('Wiz\Webhooks\Jobs\ConsoleHandler', ['request_id' => $requestData->id]);
     }
 
     /**
